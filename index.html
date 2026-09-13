@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CreatorFlow — Production, run properly.</title>
+<meta name="description" content="Editing, gear, and crew for people who make things on camera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#151311;
+  --panel:#201d19;
+  --panel2:#282420;
+  --paper:#f3ede2;
+  --paper-dim:#e9e1d2;
+  --red:#e8432f;
+  --brass:#c9a15a;
+  --grey:#8a8177;
+  --line:#3a352e;
+  --line-light:#d9cfba;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--black);
+  color:var(--paper);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.mono{font-family:'JetBrains Mono',monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.hide-motion{transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;
+  mix-blend-mode:difference;
+}
+.topbar .mark{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.02em;color:var(--paper)}
+.topbar .mark span{color:var(--red);mix-blend-mode:normal}
+.topbar nav{display:flex;gap:28px;font-size:13px;font-weight:600}
+.topbar nav a{text-decoration:none;opacity:.85}
+.topbar nav a:hover{opacity:1}
+.topbar .cta{
+  font-size:12px;font-weight:700;text-decoration:none;
+  border:1px solid var(--paper);padding:9px 16px;
+}
+@media(max-width:760px){.topbar nav{display:none}}
+
+/* ---------- hero: letterboxed, asymmetric ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 64px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 900px 500px at 78% 30%, #2c2620 0%, transparent 60%),
+    var(--black);
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;left:0;right:0;height:44px;background:#000;z-index:2;
+}
+.hero:before{top:0}
+.hero:after{bottom:0}
+.hero-slate{
+  position:absolute;top:44px;left:0;right:0;
+  display:flex;justify-content:space-between;
+  padding:22px 28px 0;
+  font-size:11px;letter-spacing:.06em;color:var(--grey);
+  z-index:3;
+}
+.hero-slate .rec{display:flex;align-items:center;gap:7px;color:var(--paper)}
+.hero-slate .rec i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.6s steps(1) infinite}
+@keyframes blink{50%{opacity:.25}}
+.hero-inner{
+  position:relative;z-index:3;
+  padding:0 28px;
+  max-width:1180px;margin:0 auto;width:100%;
+}
+.hero-tag{
+  font-size:13px;color:var(--brass);font-weight:600;
+  margin:0 0 18px;max-width:420px;line-height:1.5;
+}
+.hero h1{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:clamp(48px,9vw,132px);
+  line-height:.92;
+  letter-spacing:-.01em;
+  margin:0;
+  text-transform:uppercase;
+  max-width:920px;
+}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-foot{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-top:38px;flex-wrap:wrap;
+}
+.hero-copy{max-width:400px;color:var(--grey);font-size:15px;line-height:1.65}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--red);color:var(--paper);text-decoration:none;
+  padding:15px 26px;font-size:14px;font-weight:700;
+  border:1px solid var(--red);
+}
+.btn-primary:hover{background:transparent;color:var(--red)}
+.btn-ghost{
+  display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--paper);
+  font-size:13px;font-weight:600;
+}
+.play-ring{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--paper);
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.btn-ghost:hover .play-ring{background:var(--paper);color:var(--black)}
+
+/* ---------- specs (services as gear sheet) ---------- */
+.specs{background:var(--paper);color:var(--black);padding:110px 0}
+.specs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
+.specs-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,4.5vw,54px);text-transform:uppercase;margin:0;line-height:1}
+.specs-head p{max-width:340px;color:#5c5348;font-size:14px;line-height:1.6;margin:0}
+.spec-table{border-top:1px solid var(--black)}
+.spec-row{
+  display:grid;grid-template-columns:70px 1fr 1fr 160px;gap:24px;
+  padding:26px 0;border-bottom:1px solid var(--line-light);
+  align-items:center;
+}
+.spec-row .idx{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--grey)}
+.spec-row h3{font-size:20px;margin:0 0 6px;font-weight:700}
+.spec-row .desc{font-size:13.5px;color:#5c5348;line-height:1.55;margin:0}
+.spec-row .price{font-family:'JetBrains Mono',monospace;font-size:14px;text-align:right;color:var(--black)}
+.spec-row .price small{display:block;color:var(--grey);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+@media(max-width:720px){
+  .spec-row{grid-template-columns:40px 1fr;grid-template-areas:"idx title" ". desc" ". price"}
+  .spec-row .idx{grid-area:idx}
+  .spec-row h3{grid-area:title}
+  .spec-row .desc{grid-area:desc}
+  .spec-row .price{grid-area:price;text-align:left;margin-top:10px}
+}
+
+/* ---------- filmstrip: horizontal work reel ---------- */
+.reel{background:var(--black);padding:96px 0 100px;overflow:hidden}
+.reel-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:20px}
+.reel-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0;line-height:1}
+.reel-head span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--grey)}
+.reel-strip{
+  position:relative;
+  border-top:14px solid var(--panel2);
+  border-bottom:14px solid var(--panel2);
+  background:
+    repeating-linear-gradient(90deg,var(--black) 0 26px,transparent 26px 52px);
+}
+.reel-strip:before,.reel-strip:after{
+  content:"";position:absolute;left:0;right:0;height:14px;
+  background-image:radial-gradient(circle,var(--black) 5px,transparent 5.5px);
+  background-size:34px 14px;background-position:10px center;
+}
+.reel-strip:before{top:-14px}
+.reel-strip:after{bottom:-14px}
+.reel-track{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:4px}
+.reel-track::-webkit-scrollbar{display:none}
+.reel-frame{
+  flex:0 0 auto;width:260px;height:340px;
+  background:var(--panel);position:relative;
+  display:flex;align-items:flex-end;
+}
+.reel-frame img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.82}
+.reel-frame .cap{position:relative;z-index:1;padding:16px;background:linear-gradient(0deg,#000 0,transparent 90%);width:100%}
+.reel-frame .cap b{display:block;font-size:14px}
+.reel-frame .cap span{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--brass)}
+
+/* ---------- process: timecode steps ---------- */
+.process{background:var(--paper);color:var(--black);padding:100px 0}
+.process-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0 0 56px;line-height:1}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--black)}
+.process-cell{background:var(--paper);padding:32px 26px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.process-cell .tc{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:700}
+.process-cell h3{font-size:18px;margin:20px 0 8px}
+.process-cell p{font-size:13px;color:#5c5348;line-height:1.55;margin:0}
+@media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.process-grid{grid-template-columns:1fr}}
+
+/* ---------- crew: credits roll ---------- */
+.credits{background:var(--black);padding:100px 0;text-align:center}
+.credits h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0 0 14px}
+.credits>.wrap>p{color:var(--grey);font-size:14px;max-width:440px;margin:0 auto 60px}
+.credit-list{display:flex;flex-direction:column;gap:2px;max-width:640px;margin:0 auto}
+.credit-row{
+  display:flex;justify-content:space-between;padding:20px 4px;
+  border-bottom:1px solid var(--line);font-size:15px;
+}
+.credit-row .role{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brass);letter-spacing:.04em}
+
+/* ---------- final slate / cta ---------- */
+.slate{background:var(--panel);padding:110px 0;position:relative;overflow:hidden}
+.slate:before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(-45deg,#000 0 26px,transparent 26px 52px);
+  opacity:.5;
+}
+.slate-inner{position:relative;text-align:center}
+.slate small{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brass);letter-spacing:.06em}
+.slate h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(36px,6vw,74px);text-transform:uppercase;margin:16px 0 36px;line-height:1.02}
+.slate .btn-primary{padding:18px 34px;font-size:15px}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);padding:40px 0;border-top:1px solid var(--line)}
+.foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--grey)}
+.foot-row .mark{font-family:'Anton',sans-serif;color:var(--paper);font-size:15px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="mark">CREATOR<span>FLOW</span></div>
+  <nav>
+    <a href="#specs">Services</a>
+    <a href="#reel">Reel</a>
+    <a href="#process">Process</a>
+    <a href="#crew">Crew</a>
+  </nav>
+  <a class="cta" href="#slate">Start a project</a>
+</div>
+
+<section class="hero">
+  <div class="hero-slate">
+    <span class="rec"><i></i> REC <span class="mono" id="tc">00:00:00:00</span></span>
+    <span class="mono">CREATORFLOW / SCENE 01 / TAKE 01</span>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-tag">Editing, equipment, and crew for people who post for a living.</p>
+    <h1>Shot right.<br>Cut <em>tighter.</em><br>Shipped on time.</h1>
+    <div class="hero-foot">
+      <p class="hero-copy">CreatorFlow is the production desk behind your channel — editors who understand pacing, gear you can rent by the day, and crew who show up when the call sheet says.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#slate">Book a slot</a>
+        <a class="btn-ghost" href="#reel"><span class="play-ring">▶</span> Watch the reel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="specs" id="specs">
+  <div class="wrap">
+    <div class="specs-head">
+      <h2>Gear &amp; services</h2>
+      <p>Priced like equipment, not a subscription. Pick what the shoot needs.</p>
+    </div>
+    <div class="spec-table">
+      <div class="spec-row">
+        <span class="idx mono">A1</span>
+        <div><h3>Long-form edit</h3><p class="desc">Full narrative cut with pacing, sound design, and colour — for videos over 8 minutes.</p></div>
+        <div><p class="desc">Turnaround: 3–5 days</p></div>
+        <div class="price">₹2,500<small>per video</small></div>
+      </div>
+      <div class="spec-row">
+        <span class="idx mono">A2</span>
+        <div><h3>Shorts &amp; Reels pack</h3><p class="desc">Five vertical cuts from one long-form source, captioned and re-paced for retention.</p></div>
+        <div><p class="desc">Turnaround: 24–48 hrs</p></div>
+        <div class="price">₹1,800<small>per set of 5</small></div>
+      </div>
+      <div class="spec-row">
+        <span class="idx mono">B1</span>
+        <div><h3>Camera kit — daily rental</h3><p class="desc">Body, two lenses, tripod, shotgun mic. Delivered and picked up by our crew.</p></div>
+        <div><p class="desc">Deposit required</p></div>
+        <div class="price">₹900<small>per day</small></div>
+      </div>
+      <div class="spec-row">
+        <span class="idx mono">B2</span>
+        <div><h3>Crew for a shoot day</h3><p class="desc">Camera operator or a full two-person crew, briefed from your shot list.</p></div>
+        <div><p class="desc">Book 48 hrs ahead</p></div>
+        <div class="price">₹3,500<small>per day</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reel" id="reel">
+  <div class="wrap">
+    <div class="reel-head">
+      <h2>Recent cuts</h2>
+      <span class="mono">SCROLL →</span>
+    </div>
+  </div>
+  <div class="reel-strip">
+    <div class="reel-track">
+      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=500&q=60" alt=""><div class="cap"><b>Studio vlog series</b><span>DOC · 12:40</span></div></div>
+      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&q=60" alt=""><div class="cap"><b>Product launch film</b><span>COMMERCIAL · 1:30</span></div></div>
+      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?w=500&q=60" alt=""><div class="cap"><b>Travel shorts pack</b><span>REELS · 0:45</span></div></div>
+      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=60" alt=""><div class="cap"><b>Live gig coverage</b><span>MULTI-CAM · 8:12</span></div></div>
+      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1495434942214-9b525bb74e59?w=500&q=60" alt=""><div class="cap"><b>Podcast highlight cuts</b><span>REELS · 1:05</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-head"><h2>How a project runs</h2></div>
+    <div class="process-grid">
+      <div class="process-cell"><span class="tc mono">00:00</span><h3>Brief</h3><p>Send your footage or your equipment list. We confirm scope and price within the hour.</p></div>
+      <div class="process-cell"><span class="tc mono">00:24</span><h3>Assign</h3><p>Your job goes to the editor or crew member best matched to the work — not a queue.</p></div>
+      <div class="process-cell"><span class="tc mono">02:00</span><h3>Produce</h3><p>Track progress from your dashboard. Message the person doing the work directly.</p></div>
+      <div class="process-cell"><span class="tc mono">04:00</span><h3>Deliver</h3><p>Review, request one round of changes if needed, and download the final files.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="credits" id="crew">
+  <div class="wrap">
+    <h2>The crew</h2>
+    <p>Every job is done by a named person, not a pool. Here's who's usually on set.</p>
+    <div class="credit-list">
+      <div class="credit-row"><span>Editing lead</span><span class="role mono">NARRATIVE CUT</span></div>
+      <div class="credit-row"><span>Colourist</span><span class="role mono">GRADE &amp; DELIVER</span></div>
+      <div class="credit-row"><span>Camera operators (4)</span><span class="role mono">ON-LOCATION</span></div>
+      <div class="credit-row"><span>Sound mixer</span><span class="role mono">DIALOGUE &amp; SFX</span></div>
+      <div class="credit-row"><span>Equipment manager</span><span class="role mono">GEAR &amp; LOGISTICS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slate" id="slate">
+  <div class="wrap slate-inner">
+    <small class="mono">ACTION</small>
+    <h2>Let's get this<br>on the calendar.</h2>
+    <a class="btn-primary" href="mailto:creatorflow.co.in@gmail.com">Start a project →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="mark">CREATORFLOW</span>
+    <span>Design exploration — v1</span>
+    <span>© 2026 CreatorFlow</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var el = document.getElementById('tc');
+  var start = Date.now();
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    var elapsed = Date.now() - start;
+    var totalSec = Math.floor(elapsed/1000);
+    var h = pad(Math.floor(totalSec/3600));
+    var m = pad(Math.floor((totalSec%3600)/60));
+    var s = pad(totalSec%60);
+    var f = pad(Math.floor((elapsed%1000)/40)); // pseudo-frames
+    el.textContent = h+':'+m+':'+s+':'+f;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
