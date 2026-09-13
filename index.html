@@ -3,367 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CreatorFlow — Production, run properly.</title>
-<meta name="description" content="Editing, gear, and crew for people who make things on camera.">
+<title>CreatorFlow — Made for people who make things.</title>
+<meta name="description" content="Editing, gear, and crew for creators — the documentary desk behind your channel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Fraunces:ital,opsz,wght@1,9..144,900&family=Caveat:wght@600;700&family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#151311;
-  --panel:#201d19;
-  --panel2:#282420;
-  --paper:#f3ede2;
-  --paper-dim:#e9e1d2;
-  --red:#e8432f;
-  --brass:#c9a15a;
-  --grey:#8a8177;
-  --line:#3a352e;
-  --line-light:#d9cfba;
+  --paper:#f1ead9;
+  --paper2:#e9dfc9;
+  --ink:#1c1a16;
+  --ink-soft:#4a4438;
+  --yellow:#f2c230;
+  --yellow-deep:#e0a91a;
+  --red:#b8412f;
+  --line:#1c1a1633;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{
   margin:0;
-  background:var(--black);
-  color:var(--paper);
+  background:var(--paper);
+  color:var(--ink);
   font-family:'Inter',sans-serif;
   font-size:16px;
-  line-height:1.5;
+  line-height:1.55;
   -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 1px 1px, #00000009 1px, transparent 0);
+  background-size:22px 22px;
 }
-img{max-width:100%;display:block}
+img,svg{max-width:100%;display:block}
 a{color:inherit}
-.mono{font-family:'JetBrains Mono',monospace}
-.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.hide-motion{transition:none!important;animation:none!important}
+.serif{font-family:'Fraunces',serif}
+.script{font-family:'Caveat',cursive}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 
-/* ---------- top bar ---------- */
-.topbar{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 28px;
-  mix-blend-mode:difference;
-}
-.topbar .mark{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.02em;color:var(--paper)}
-.topbar .mark span{color:var(--red);mix-blend-mode:normal}
-.topbar nav{display:flex;gap:28px;font-size:13px;font-weight:600}
-.topbar nav a{text-decoration:none;opacity:.85}
-.topbar nav a:hover{opacity:1}
-.topbar .cta{
-  font-size:12px;font-weight:700;text-decoration:none;
-  border:1px solid var(--paper);padding:9px 16px;
-}
-@media(max-width:760px){.topbar nav{display:none}}
+.torn{clip-path:polygon(0% 2%,3% 0%,7% 1.5%,11% 0%,15% 1%,19% 0%,24% 1.8%,29% 0%,34% 1%,39% 0%,44% 1.5%,49% 0%,54% 1%,59% 0%,64% 1.8%,69% 0%,74% 1%,79% 0%,84% 1.5%,89% 0%,94% 1%,100% 2%,100% 98%,96% 100%,91% 98.5%,86% 100%,81% 99%,76% 100%,71% 98.2%,66% 100%,61% 99%,56% 100%,51% 98.5%,46% 100%,41% 99%,36% 100%,31% 98.2%,26% 100%,21% 99%,16% 100%,11% 98.5%,6% 100%,0% 98%);}
 
-/* ---------- hero: letterboxed, asymmetric ---------- */
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:0 0 64px;
-  overflow:hidden;
-  background:
-    radial-gradient(ellipse 900px 500px at 78% 30%, #2c2620 0%, transparent 60%),
-    var(--black);
-}
-.hero:before,.hero:after{
-  content:"";position:absolute;left:0;right:0;height:44px;background:#000;z-index:2;
-}
-.hero:before{top:0}
-.hero:after{bottom:0}
-.hero-slate{
-  position:absolute;top:44px;left:0;right:0;
-  display:flex;justify-content:space-between;
-  padding:22px 28px 0;
-  font-size:11px;letter-spacing:.06em;color:var(--grey);
-  z-index:3;
-}
-.hero-slate .rec{display:flex;align-items:center;gap:7px;color:var(--paper)}
-.hero-slate .rec i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.6s steps(1) infinite}
-@keyframes blink{50%{opacity:.25}}
-.hero-inner{
-  position:relative;z-index:3;
-  padding:0 28px;
-  max-width:1180px;margin:0 auto;width:100%;
-}
-.hero-tag{
-  font-size:13px;color:var(--brass);font-weight:600;
-  margin:0 0 18px;max-width:420px;line-height:1.5;
-}
-.hero h1{
-  font-family:'Anton',sans-serif;
-  font-weight:400;
-  font-size:clamp(48px,9vw,132px);
-  line-height:.92;
-  letter-spacing:-.01em;
-  margin:0;
-  text-transform:uppercase;
-  max-width:920px;
-}
-.hero h1 em{font-style:normal;color:var(--red)}
-.hero-foot{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  gap:24px;margin-top:38px;flex-wrap:wrap;
-}
-.hero-copy{max-width:400px;color:var(--grey);font-size:15px;line-height:1.65}
-.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.btn-primary{
-  background:var(--red);color:var(--paper);text-decoration:none;
-  padding:15px 26px;font-size:14px;font-weight:700;
-  border:1px solid var(--red);
-}
-.btn-primary:hover{background:transparent;color:var(--red)}
-.btn-ghost{
-  display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--paper);
-  font-size:13px;font-weight:600;
-}
-.play-ring{
-  width:38px;height:38px;border-radius:50%;border:1px solid var(--paper);
-  display:flex;align-items:center;justify-content:center;font-size:11px;
-}
-.btn-ghost:hover .play-ring{background:var(--paper);color:var(--black)}
+header{padding:24px 0}
+.header-row{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:9px}
+.logo .dot{width:11px;height:11px;background:var(--yellow);border:2px solid var(--ink);border-radius:50%}
+.logo b{font-family:'Archivo Black',sans-serif;font-size:17px;letter-spacing:-.01em}
+nav{display:flex;gap:26px;font-size:13px;font-weight:600}
+nav a{text-decoration:none;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--yellow)}
+.header-cta{font-size:13px;font-weight:700;text-decoration:none;background:var(--ink);color:var(--paper);padding:10px 18px;transform:rotate(-1deg);display:inline-block}
+@media(max-width:760px){nav{display:none}}
 
-/* ---------- specs (services as gear sheet) ---------- */
-.specs{background:var(--paper);color:var(--black);padding:110px 0}
-.specs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
-.specs-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,4.5vw,54px);text-transform:uppercase;margin:0;line-height:1}
-.specs-head p{max-width:340px;color:#5c5348;font-size:14px;line-height:1.6;margin:0}
-.spec-table{border-top:1px solid var(--black)}
-.spec-row{
-  display:grid;grid-template-columns:70px 1fr 1fr 160px;gap:24px;
-  padding:26px 0;border-bottom:1px solid var(--line-light);
-  align-items:center;
-}
-.spec-row .idx{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--grey)}
-.spec-row h3{font-size:20px;margin:0 0 6px;font-weight:700}
-.spec-row .desc{font-size:13.5px;color:#5c5348;line-height:1.55;margin:0}
-.spec-row .price{font-family:'JetBrains Mono',monospace;font-size:14px;text-align:right;color:var(--black)}
-.spec-row .price small{display:block;color:var(--grey);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
-@media(max-width:720px){
-  .spec-row{grid-template-columns:40px 1fr;grid-template-areas:"idx title" ". desc" ". price"}
-  .spec-row .idx{grid-area:idx}
-  .spec-row h3{grid-area:title}
-  .spec-row .desc{grid-area:desc}
-  .spec-row .price{grid-area:price;text-align:left;margin-top:10px}
-}
+.hero{position:relative;padding:30px 0 90px;overflow:hidden}
+.hero-grid{position:relative;display:grid;grid-template-columns:1fr;min-height:520px;align-items:center}
+.hero-yellow{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:460px;height:460px;background:var(--yellow);border-radius:50%;z-index:0}
+.hero-text{position:relative;z-index:2;text-align:center;padding:0 20px}
+.hero-kicker{display:inline-block;background:var(--ink);color:var(--paper);font-size:12px;font-weight:700;padding:6px 14px;transform:rotate(-2deg);margin-bottom:22px}
+.hero-text h1{margin:0;line-height:.98}
+.hero-line1{font-family:'Archivo Black',sans-serif;font-size:clamp(30px,5.6vw,58px);text-transform:uppercase;display:block}
+.hero-line2{font-family:'Fraunces',serif;font-weight:900;font-optical-sizing:auto;font-style:italic;font-size:clamp(64px,13vw,150px);display:block;margin:2px 0}
+.hero-line3{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+.hero-line3 .script{font-size:clamp(28px,4.5vw,46px);transform:rotate(-4deg)}
+.hero-line3 .tag{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,3.4vw,32px);background:var(--ink);color:var(--paper);padding:4px 16px;transform:rotate(2deg);text-transform:uppercase}
+.hero-sub{max-width:420px;margin:30px auto 0;color:var(--ink-soft);font-size:15px}
+.hero-actions{display:flex;justify-content:center;gap:14px;margin-top:30px;flex-wrap:wrap}
+.btn{font-weight:700;font-size:14px;text-decoration:none;padding:14px 24px;border:2px solid var(--ink);display:inline-block}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:transparent;color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
 
-/* ---------- filmstrip: horizontal work reel ---------- */
-.reel{background:var(--black);padding:96px 0 100px;overflow:hidden}
-.reel-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:20px}
-.reel-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0;line-height:1}
-.reel-head span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--grey)}
-.reel-strip{
-  position:relative;
-  border-top:14px solid var(--panel2);
-  border-bottom:14px solid var(--panel2);
-  background:
-    repeating-linear-gradient(90deg,var(--black) 0 26px,transparent 26px 52px);
-}
-.reel-strip:before,.reel-strip:after{
-  content:"";position:absolute;left:0;right:0;height:14px;
-  background-image:radial-gradient(circle,var(--black) 5px,transparent 5.5px);
-  background-size:34px 14px;background-position:10px center;
-}
-.reel-strip:before{top:-14px}
-.reel-strip:after{bottom:-14px}
-.reel-track{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:4px}
-.reel-track::-webkit-scrollbar{display:none}
-.reel-frame{
-  flex:0 0 auto;width:260px;height:340px;
-  background:var(--panel);position:relative;
-  display:flex;align-items:flex-end;
-}
-.reel-frame img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.82}
-.reel-frame .cap{position:relative;z-index:1;padding:16px;background:linear-gradient(0deg,#000 0,transparent 90%);width:100%}
-.reel-frame .cap b{display:block;font-size:14px}
-.reel-frame .cap span{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--brass)}
+.sketch{position:absolute;z-index:1;opacity:.92}
+.sketch.camera{top:6%;right:6%;width:120px;transform:rotate(8deg)}
+.sketch.reel{bottom:2%;left:3%;width:130px;transform:rotate(-6deg)}
+.sketch.arrow{top:22%;left:8%;width:90px;transform:rotate(-8deg)}
+.clip{position:absolute;background:#fffaf0;border:1px solid var(--line);padding:12px 14px;font-family:'Archivo Black',sans-serif;font-size:11px;line-height:1.35;max-width:150px;box-shadow:3px 4px 0 var(--ink);z-index:1}
+.clip.a{top:8%;left:2%;transform:rotate(-5deg)}
+.clip.b{bottom:6%;right:4%;transform:rotate(4deg)}
+@media(max-width:820px){.sketch,.clip{display:none}.hero-yellow{width:300px;height:300px}}
 
-/* ---------- process: timecode steps ---------- */
-.process{background:var(--paper);color:var(--black);padding:100px 0}
-.process-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0 0 56px;line-height:1}
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--black)}
-.process-cell{background:var(--paper);padding:32px 26px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
-.process-cell .tc{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:700}
-.process-cell h3{font-size:18px;margin:20px 0 8px}
-.process-cell p{font-size:13px;color:#5c5348;line-height:1.55;margin:0}
-@media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.process-grid{grid-template-columns:1fr}}
+.board{background:var(--paper2);padding:90px 0;position:relative}
+.board-head{text-align:center;margin-bottom:56px}
+.board-head .script{font-size:clamp(30px,4vw,46px);display:block;transform:rotate(-2deg)}
+.board-head h2{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,3.6vw,42px);text-transform:uppercase;margin:2px 0 0}
+.pin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.pin-card{background:#fffaf0;border:1px solid var(--line);padding:26px 22px;box-shadow:5px 6px 0 var(--ink);position:relative}
+.pin-card:nth-child(odd){transform:rotate(-1.4deg)}
+.pin-card:nth-child(even){transform:rotate(1.2deg)}
+.pin-card .pin{position:absolute;top:-11px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:var(--red);border-radius:50%;box-shadow:0 2px 3px #0004}
+.pin-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:20px;margin:10px 0 8px}
+.pin-card p{font-size:13px;color:var(--ink-soft);margin:0 0 16px;line-height:1.5}
+.pin-card .price{font-family:'Archivo Black',sans-serif;font-size:18px}
+.pin-card .price span{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;color:var(--ink-soft);text-transform:none}
+@media(max-width:920px){.pin-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.pin-grid{grid-template-columns:1fr}}
 
-/* ---------- crew: credits roll ---------- */
-.credits{background:var(--black);padding:100px 0;text-align:center}
-.credits h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(30px,4vw,48px);text-transform:uppercase;margin:0 0 14px}
-.credits>.wrap>p{color:var(--grey);font-size:14px;max-width:440px;margin:0 auto 60px}
-.credit-list{display:flex;flex-direction:column;gap:2px;max-width:640px;margin:0 auto}
-.credit-row{
-  display:flex;justify-content:space-between;padding:20px 4px;
-  border-bottom:1px solid var(--line);font-size:15px;
-}
-.credit-row .role{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brass);letter-spacing:.04em}
+.gallery{padding:96px 0}
+.gallery-head{text-align:center;margin-bottom:54px}
+.gallery-head h2{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,3.6vw,42px);text-transform:uppercase;margin:0}
+.gallery-head .script{font-size:clamp(24px,3vw,34px);color:var(--red);transform:rotate(-2deg);display:inline-block}
+.polaroid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.polaroid{background:#fffaf0;padding:12px 12px 46px;border:1px solid var(--line);box-shadow:4px 5px 0 var(--ink);position:relative}
+.polaroid:nth-child(1){transform:rotate(-3deg)}
+.polaroid:nth-child(2){transform:rotate(2deg)}
+.polaroid:nth-child(3){transform:rotate(-1.5deg)}
+.polaroid:nth-child(4){transform:rotate(3deg)}
+.polaroid .tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-3deg);width:60px;height:22px;background:#f2e9c9cc;border:1px solid var(--line)}
+.polaroid .frame{aspect-ratio:1;background:var(--ink);overflow:hidden}
+.polaroid .frame img{width:100%;height:100%;object-fit:cover;opacity:.88}
+.polaroid figcaption{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:'Caveat',cursive;font-size:19px;font-weight:700}
+@media(max-width:920px){.polaroid-row{grid-template-columns:1fr 1fr;row-gap:44px}}
+@media(max-width:560px){.polaroid-row{grid-template-columns:1fr}}
 
-/* ---------- final slate / cta ---------- */
-.slate{background:var(--panel);padding:110px 0;position:relative;overflow:hidden}
-.slate:before{
-  content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(-45deg,#000 0 26px,transparent 26px 52px);
-  opacity:.5;
-}
-.slate-inner{position:relative;text-align:center}
-.slate small{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brass);letter-spacing:.06em}
-.slate h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(36px,6vw,74px);text-transform:uppercase;margin:16px 0 36px;line-height:1.02}
-.slate .btn-primary{padding:18px 34px;font-size:15px}
+.notebook{background:var(--ink);color:var(--paper);padding:90px 0}
+.notebook-head{text-align:center;margin-bottom:50px}
+.notebook-head h2{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,3.6vw,42px);text-transform:uppercase;margin:0}
+.step-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper)}
+.step-cell{background:var(--ink);padding:34px 24px;text-align:center}
+.step-cell .num{font-family:'Fraunces',serif;font-style:italic;font-weight:900;font-size:44px;color:var(--yellow)}
+.step-cell h3{font-size:16px;margin:12px 0 8px;font-weight:700}
+.step-cell p{font-size:12.5px;color:#cfc7b6;line-height:1.5;margin:0}
+@media(max-width:900px){.step-row{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.step-row{grid-template-columns:1fr}}
 
-/* ---------- footer ---------- */
-footer{background:var(--black);padding:40px 0;border-top:1px solid var(--line)}
-.foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--grey)}
-.foot-row .mark{font-family:'Anton',sans-serif;color:var(--paper);font-size:15px}
+.finale{padding:100px 0;text-align:center;position:relative;overflow:hidden}
+.finale-yellow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:380px;height:380px;background:var(--yellow);border-radius:50%;z-index:0}
+.finale-inner{position:relative;z-index:1}
+.finale h2{font-family:'Fraunces',serif;font-style:italic;font-weight:900;font-size:clamp(42px,7vw,84px);margin:0 0 30px;line-height:1}
+.finale .btn{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+footer{border-top:2px solid var(--ink);padding:34px 0}
+.foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink-soft)}
+.foot-row b{font-family:'Archivo Black',sans-serif;color:var(--ink);font-size:14px}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="mark">CREATOR<span>FLOW</span></div>
-  <nav>
-    <a href="#specs">Services</a>
-    <a href="#reel">Reel</a>
-    <a href="#process">Process</a>
-    <a href="#crew">Crew</a>
-  </nav>
-  <a class="cta" href="#slate">Start a project</a>
-</div>
+<header class="wrap">
+  <div class="header-row">
+    <div class="logo"><span class="dot"></span><b>CREATORFLOW</b></div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+    </nav>
+    <a class="header-cta" href="#finale">Start a project</a>
+  </div>
+</header>
 
 <section class="hero">
-  <div class="hero-slate">
-    <span class="rec"><i></i> REC <span class="mono" id="tc">00:00:00:00</span></span>
-    <span class="mono">CREATORFLOW / SCENE 01 / TAKE 01</span>
-  </div>
-  <div class="hero-inner">
-    <p class="hero-tag">Editing, equipment, and crew for people who post for a living.</p>
-    <h1>Shot right.<br>Cut <em>tighter.</em><br>Shipped on time.</h1>
-    <div class="hero-foot">
-      <p class="hero-copy">CreatorFlow is the production desk behind your channel — editors who understand pacing, gear you can rent by the day, and crew who show up when the call sheet says.</p>
+  <div class="wrap hero-grid">
+    <div class="hero-yellow"></div>
+
+    <svg class="sketch camera" viewBox="0 0 120 90" fill="none" stroke="#1c1a16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="10" y="25" width="90" height="55" rx="4"/>
+      <path d="M40 25 L48 12 H78 L86 25"/>
+      <circle cx="55" cy="52" r="20"/>
+      <circle cx="55" cy="52" r="11"/>
+      <rect x="90" y="34" width="12" height="8" rx="1"/>
+    </svg>
+    <svg class="sketch reel" viewBox="0 0 130 100" fill="none" stroke="#1c1a16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="40" cy="50" r="34"/>
+      <circle cx="40" cy="50" r="9"/>
+      <circle cx="22" cy="34" r="7"/><circle cx="58" cy="34" r="7"/>
+      <circle cx="22" cy="66" r="7"/><circle cx="58" cy="66" r="7"/>
+      <path d="M74 50 H118 M104 38 L118 50 L104 62"/>
+    </svg>
+    <svg class="sketch arrow" viewBox="0 0 90 60" fill="none" stroke="#1c1a16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 40 C 25 8, 55 8, 82 30"/>
+      <path d="M68 20 L84 30 L70 42"/>
+    </svg>
+    <div class="clip a torn">"CREATOR ECONOMY HITS RECORD HIGH AS EDITING DEMAND SOARS"</div>
+    <div class="clip b torn">"WHY EVERY CHANNEL NEEDS A REAL EDITOR" — TRADE WEEKLY</div>
+
+    <div class="hero-text">
+      <span class="hero-kicker">Editing · Gear · Crew</span>
+      <h1>
+        <span class="hero-line1">Made for people</span>
+        <span class="hero-line2">who make things</span>
+        <span class="hero-line3"><span class="script">on camera,</span> <span class="tag">every week</span></span>
+      </h1>
+      <p class="hero-sub">CreatorFlow is the production desk behind your channel — editors who get pacing, gear you can rent by the day, and crew who actually show up.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#slate">Book a slot</a>
-        <a class="btn-ghost" href="#reel"><span class="play-ring">▶</span> Watch the reel</a>
+        <a class="btn btn-solid" href="#finale">Start a project</a>
+        <a class="btn btn-line" href="#work">See the work</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="specs" id="specs">
+<section class="board" id="services">
   <div class="wrap">
-    <div class="specs-head">
-      <h2>Gear &amp; services</h2>
-      <p>Priced like equipment, not a subscription. Pick what the shoot needs.</p>
+    <div class="board-head">
+      <span class="script">pinned to the board —</span>
+      <h2>What we do</h2>
     </div>
-    <div class="spec-table">
-      <div class="spec-row">
-        <span class="idx mono">A1</span>
-        <div><h3>Long-form edit</h3><p class="desc">Full narrative cut with pacing, sound design, and colour — for videos over 8 minutes.</p></div>
-        <div><p class="desc">Turnaround: 3–5 days</p></div>
-        <div class="price">₹2,500<small>per video</small></div>
-      </div>
-      <div class="spec-row">
-        <span class="idx mono">A2</span>
-        <div><h3>Shorts &amp; Reels pack</h3><p class="desc">Five vertical cuts from one long-form source, captioned and re-paced for retention.</p></div>
-        <div><p class="desc">Turnaround: 24–48 hrs</p></div>
-        <div class="price">₹1,800<small>per set of 5</small></div>
-      </div>
-      <div class="spec-row">
-        <span class="idx mono">B1</span>
-        <div><h3>Camera kit — daily rental</h3><p class="desc">Body, two lenses, tripod, shotgun mic. Delivered and picked up by our crew.</p></div>
-        <div><p class="desc">Deposit required</p></div>
-        <div class="price">₹900<small>per day</small></div>
-      </div>
-      <div class="spec-row">
-        <span class="idx mono">B2</span>
-        <div><h3>Crew for a shoot day</h3><p class="desc">Camera operator or a full two-person crew, briefed from your shot list.</p></div>
-        <div><p class="desc">Book 48 hrs ahead</p></div>
-        <div class="price">₹3,500<small>per day</small></div>
-      </div>
+    <div class="pin-grid">
+      <article class="pin-card"><span class="pin"></span>
+        <h3>Long-form edit</h3>
+        <p>Full narrative cut with pacing, sound design, and colour.</p>
+        <div class="price">₹2,500 <span>per video</span></div>
+      </article>
+      <article class="pin-card"><span class="pin"></span>
+        <h3>Shorts pack</h3>
+        <p>Five vertical cuts from one source, captioned and re-paced.</p>
+        <div class="price">₹1,800 <span>per set of 5</span></div>
+      </article>
+      <article class="pin-card"><span class="pin"></span>
+        <h3>Camera rental</h3>
+        <p>Body, two lenses, tripod, mic — delivered and picked up.</p>
+        <div class="price">₹900 <span>per day</span></div>
+      </article>
+      <article class="pin-card"><span class="pin"></span>
+        <h3>Crew for the day</h3>
+        <p>Camera operator or a full two-person crew, shot-list briefed.</p>
+        <div class="price">₹3,500 <span>per day</span></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="reel" id="reel">
+<section class="gallery" id="work">
   <div class="wrap">
-    <div class="reel-head">
-      <h2>Recent cuts</h2>
-      <span class="mono">SCROLL →</span>
+    <div class="gallery-head">
+      <h2>Recent <span class="script">cuts</span></h2>
     </div>
-  </div>
-  <div class="reel-strip">
-    <div class="reel-track">
-      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=500&q=60" alt=""><div class="cap"><b>Studio vlog series</b><span>DOC · 12:40</span></div></div>
-      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&q=60" alt=""><div class="cap"><b>Product launch film</b><span>COMMERCIAL · 1:30</span></div></div>
-      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?w=500&q=60" alt=""><div class="cap"><b>Travel shorts pack</b><span>REELS · 0:45</span></div></div>
-      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=500&q=60" alt=""><div class="cap"><b>Live gig coverage</b><span>MULTI-CAM · 8:12</span></div></div>
-      <div class="reel-frame"><img src="https://images.unsplash.com/photo-1495434942214-9b525bb74e59?w=500&q=60" alt=""><div class="cap"><b>Podcast highlight cuts</b><span>REELS · 1:05</span></div></div>
+    <div class="polaroid-row">
+      <figure class="polaroid"><div class="tape"></div><div class="frame"><img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=400&q=60" alt=""></div><figcaption>Studio vlog</figcaption></figure>
+      <figure class="polaroid"><div class="tape"></div><div class="frame"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=60" alt=""></div><figcaption>Product film</figcaption></figure>
+      <figure class="polaroid"><div class="tape"></div><div class="frame"><img src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?w=400&q=60" alt=""></div><figcaption>Travel shorts</figcaption></figure>
+      <figure class="polaroid"><div class="tape"></div><div class="frame"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&q=60" alt=""></div><figcaption>Live coverage</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section class="process" id="process">
+<section class="notebook" id="process">
   <div class="wrap">
-    <div class="process-head"><h2>How a project runs</h2></div>
-    <div class="process-grid">
-      <div class="process-cell"><span class="tc mono">00:00</span><h3>Brief</h3><p>Send your footage or your equipment list. We confirm scope and price within the hour.</p></div>
-      <div class="process-cell"><span class="tc mono">00:24</span><h3>Assign</h3><p>Your job goes to the editor or crew member best matched to the work — not a queue.</p></div>
-      <div class="process-cell"><span class="tc mono">02:00</span><h3>Produce</h3><p>Track progress from your dashboard. Message the person doing the work directly.</p></div>
-      <div class="process-cell"><span class="tc mono">04:00</span><h3>Deliver</h3><p>Review, request one round of changes if needed, and download the final files.</p></div>
+    <div class="notebook-head"><h2>How it runs</h2></div>
+    <div class="step-row">
+      <div class="step-cell"><span class="num">1</span><h3>Brief</h3><p>Send your footage or gear list. We confirm scope within the hour.</p></div>
+      <div class="step-cell"><span class="num">2</span><h3>Assign</h3><p>Goes to the editor or crew member best matched to the job.</p></div>
+      <div class="step-cell"><span class="num">3</span><h3>Produce</h3><p>Track progress and message the person doing the work, directly.</p></div>
+      <div class="step-cell"><span class="num">4</span><h3>Deliver</h3><p>Review, request one round of changes, download the final files.</p></div>
     </div>
   </div>
 </section>
 
-<section class="credits" id="crew">
-  <div class="wrap">
-    <h2>The crew</h2>
-    <p>Every job is done by a named person, not a pool. Here's who's usually on set.</p>
-    <div class="credit-list">
-      <div class="credit-row"><span>Editing lead</span><span class="role mono">NARRATIVE CUT</span></div>
-      <div class="credit-row"><span>Colourist</span><span class="role mono">GRADE &amp; DELIVER</span></div>
-      <div class="credit-row"><span>Camera operators (4)</span><span class="role mono">ON-LOCATION</span></div>
-      <div class="credit-row"><span>Sound mixer</span><span class="role mono">DIALOGUE &amp; SFX</span></div>
-      <div class="credit-row"><span>Equipment manager</span><span class="role mono">GEAR &amp; LOGISTICS</span></div>
-    </div>
+<section class="finale" id="finale">
+  <div class="finale-yellow"></div>
+  <div class="wrap finale-inner">
+    <h2>Let's make<br>something.</h2>
+    <a class="btn" href="mailto:creatorflow.co.in@gmail.com">Start a project →</a>
   </div>
 </section>
 
-<section class="slate" id="slate">
-  <div class="wrap slate-inner">
-    <small class="mono">ACTION</small>
-    <h2>Let's get this<br>on the calendar.</h2>
-    <a class="btn-primary" href="mailto:creatorflow.co.in@gmail.com">Start a project →</a>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap foot-row">
-    <span class="mark">CREATORFLOW</span>
-    <span>Design exploration — v1</span>
-    <span>© 2026 CreatorFlow</span>
+<footer class="wrap">
+  <div class="foot-row">
+    <b>CREATORFLOW</b>
+    <span>Design exploration — v2, VOX-style</span>
+    <span>© 2026</span>
   </div>
 </footer>
 
-<script>
-(function(){
-  var el = document.getElementById('tc');
-  var start = Date.now();
-  function pad(n){ return String(n).padStart(2,'0'); }
-  function tick(){
-    var elapsed = Date.now() - start;
-    var totalSec = Math.floor(elapsed/1000);
-    var h = pad(Math.floor(totalSec/3600));
-    var m = pad(Math.floor((totalSec%3600)/60));
-    var s = pad(totalSec%60);
-    var f = pad(Math.floor((elapsed%1000)/40)); // pseudo-frames
-    el.textContent = h+':'+m+':'+s+':'+f;
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
-</script>
 </body>
 </html>
