@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CreatorFlow Email Test</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:600px;margin:40px auto;padding:20px}
+button{background:#e8432f;color:#fff;border:0;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;border-radius:4px}
+button:disabled{opacity:.5;cursor:not-allowed}
+#result{margin-top:20px;padding:16px;background:#f4f4f4;border-radius:4px;white-space:pre-wrap;font-family:monospace;font-size:13px;display:none}
+#result.show{display:block}
+#result.ok{background:#e8f7ee;color:#1a6b3c}
+#result.fail{background:#fdeceb;color:#a02c1f}
+</style>
+</head>
+<body>
+<h2>CreatorFlow Email Endpoint Test</h2>
+<p>Sends a real test email to <b>labibeddie@gmail.com</b> using your Apps Script endpoint.</p>
+<button id="btn">Send test email</button>
+<div id="result"></div>
+<script>
+const EMAIL_ENDPOINT = "https://script.google.com/macros/s/AKfycbxbcTRdwkSK8mi4E_e92-r0XPJO0B8R69U4ZWImYqY_Ps82qmK3TKg6gIOckWbgfxoOjw/exec";
+const EMAIL_SECRET = "eg9cXchvbHQQIEfygobRLXyf93OWfp2s";
+
+document.getElementById("btn").onclick = async () => {
+  const btn = document.getElementById("btn");
+  const result = document.getElementById("result");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  result.className = "show";
+  result.textContent = "Sending request...";
+
+  try {
+    const res = await fetch(EMAIL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        secret: EMAIL_SECRET,
+        to: "labibeddie@gmail.com",
+        subject: "CreatorFlow test email",
+        html: "<p>This is a test email from the CreatorFlow email endpoint test page. If you're reading this, it works!</p>"
+      })
+    });
+    const text = await res.text();
+    result.textContent = "HTTP status: " + res.status + "\n\nRaw response:\n" + text;
+    try {
+      const json = JSON.parse(text);
+      result.className = "show " + (json.success ? "ok" : "fail");
+    } catch {
+      result.className = "show fail";
+    }
+  } catch (err) {
+    result.className = "show fail";
+    result.textContent = "Request failed entirely: " + err.message;
+  }
+  btn.disabled = false;
+  btn.textContent = "Send test email";
+};
+</script>
+</body>
+</html>
